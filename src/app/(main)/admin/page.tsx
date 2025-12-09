@@ -54,11 +54,11 @@ export default function AdminPage() {
       <h1 className="text-4xl font-bold font-headline">Admin Panel</h1>
       
       <Tabs defaultValue="students" className="w-full">
-        <TabsList>
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
             <TabsTrigger value="students">Manage Students</TabsTrigger>
+            <TabsTrigger value="submissions">View Submissions</TabsTrigger>
             <TabsTrigger value="uploadNews">Upload News</TabsTrigger>
             <TabsTrigger value="assignments">Create Assignments</TabsTrigger>
-            <TabsTrigger value="roster">Club Roster</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
@@ -67,19 +67,32 @@ export default function AdminPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle>Manage Students</CardTitle>
-                        <ComingSoonBadge styleType="A">Full management tools coming soon.</ComingSoonBadge>
+                        <CardDescription>View student progress and send feedback.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                         {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}
+                        <ComingSoonBadge styleType="D">Full management tools coming soon.</ComingSoonBadge>
+                         {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-10 w-full mt-4" />)}
                     </CardContent>
                 </Card>
+            </TabsContent>
+            
+            <TabsContent value="submissions">
+              <Card>
+                <CardHeader>
+                  <CardTitle>View Submissions</CardTitle>
+                  <CardDescription>Review student video submissions and AI feedback.</CardDescription>
+                </CardHeader>
+                <CardContent className="text-center p-12">
+                  <ComingSoonBadge styleType="F">Submissions Dashboard Coming Soon</ComingSoonBadge>
+                </CardContent>
+              </Card>
             </TabsContent>
 
             <TabsContent value="uploadNews">
               <TeacherNewsUploadPanel />
             </TabsContent>
             
-            {[ 'assignments', 'roster', 'analytics'].map(tab => (
+            {[ 'assignments', 'analytics'].map(tab => (
                  <TabsContent value={tab} key={tab}>
                     <Card>
                         <CardHeader>

@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { getPersonalizedStudyRecommendations } from "@/ai/flows/personalized-study-recommendations";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Clock, Target, Calendar, CheckCircle, Upload, HelpCircle, GraduationCap, Sun } from "lucide-react";
+import { ArrowRight, BookOpen, Clock, Target, Calendar, CheckCircle, Upload, HelpCircle, GraduationCap, Sun, Bot } from "lucide-react";
 import Link from "next/link";
 
 async function Recommendations() {
@@ -138,6 +138,22 @@ function UpcomingEventsWidget() {
     )
 }
 
+function SmartTutorWidget() {
+    return (
+        <Card className="md:col-span-2 text-center flex flex-col justify-center items-center p-8 relative overflow-hidden">
+             <ComingSoonBadge styleType="B">AI TUTOR</ComingSoonBadge>
+             <div className="z-10 flex flex-col items-center">
+                <div className="p-4 bg-primary/10 rounded-full text-primary mb-4">
+                    <Bot className="w-10 h-10" />
+                </div>
+                <h2 className="text-2xl font-bold font-headline mb-2">AI Smart Tutor</h2>
+                <p className="text-muted-foreground max-w-md mb-6">Your personalized learning plan, revision capsules, and concept maps will appear here.</p>
+                <ComingSoonBadge styleType="D">Smart Tutor is learning...</ComingSoonBadge>
+             </div>
+        </Card>
+    )
+}
+
 export default function DashboardPage() {
   return (
     <div className="space-y-8">
@@ -189,7 +205,7 @@ export default function DashboardPage() {
 
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <QuickActionTile href="/assignments" icon={Upload} title="Upload Homework" />
-                <QuickActionTile href="#" icon={BookOpen} title="View Courses" comingSoon />
+                <QuickActionTile href="/courses" icon={BookOpen} title="View Courses" comingSoon />
                 <QuickActionTile href="#" icon={Calendar} title="View Timetable" comingSoon />
                 <QuickActionTile href="#" icon={HelpCircle} title="Ask a Question" comingSoon />
             </div>
@@ -203,10 +219,7 @@ export default function DashboardPage() {
       </div>
       
       <div className="grid gap-6 md:grid-cols-3">
-         <Card className="md:col-span-2 text-center flex flex-col justify-center items-center p-8">
-             <h2 className="text-2xl font-bold font-headline mb-4">Student Resources</h2>
-             <ComingSoonBadge styleType="D">New resources coming soon!</ComingSoonBadge>
-        </Card>
+         <SmartTutorWidget />
         <Recommendations />
       </div>
 

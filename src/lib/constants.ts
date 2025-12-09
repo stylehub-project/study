@@ -15,6 +15,7 @@ import {
   Sun,
   GraduationCap,
   ClipboardCheck,
+  Shield,
 } from 'lucide-react';
 
 export type NavLink = {
@@ -27,8 +28,8 @@ export type NavLink = {
 
 export const NAV_LINKS: NavLink[] = [
   { name: 'Home', href: '/', icon: Home, comingSoon: false },
-  { name: 'Courses', href: '/courses', icon: BookOpen, comingSoon: true },
-  { name: 'Classes', href: '/classes', icon: School, comingSoon: true },
+  { name: 'Courses', href: '/courses', icon: BookOpen, comingSoon: false },
+  { name: 'Classes', href: '/classes', icon: School, comingSoon: false },
   { name: 'Assignments', href: '/assignments', icon: ClipboardList, comingSoon: false },
   { name: 'Library', href: '/library', icon: Library, comingSoon: true },
   { name: 'Assessments', href: '/reports', icon: ClipboardCheck, comingSoon: true },
@@ -36,7 +37,7 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const ADMIN_NAV_LINKS: NavLink[] = [
-    { name: 'Admin', href: '/admin', icon: Settings, comingSoon: true },
+    { name: 'Admin', href: '/admin', icon: Shield, comingSoon: false },
 ]
 
 export const MOBILE_NAV_LINKS: NavLink[] = [

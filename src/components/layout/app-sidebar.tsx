@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { GraduationCap, Settings, User } from 'lucide-react';
+import { GraduationCap, Settings, User, Shield } from 'lucide-react';
 import {
   Sidebar,
   SidebarHeader,

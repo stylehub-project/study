@@ -4,6 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Moon, Zap, ShieldCheck } from "lucide-react";
 
 export default function ProfilePage() {
   return (
@@ -54,16 +56,25 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="flex justify-between items-center p-4 rounded-lg bg-card-foreground/5">
-                    <span>Language Preferences</span>
-                    <ComingSoonBadge styleType="C">Soon</ComingSoonBadge>
+                    <div className="flex items-center gap-3">
+                      <Zap className="text-primary" />
+                      <Label htmlFor="focus-mode" className="font-bold">Focus Mode</Label>
+                    </div>
+                    <Switch id="focus-mode" disabled />
                 </div>
                  <div className="flex justify-between items-center p-4 rounded-lg bg-card-foreground/5">
-                    <span>Theme Customization</span>
-                    <ComingSoonBadge styleType="C">Soon</ComingSoonBadge>
+                    <div className="flex items-center gap-3">
+                      <Moon className="text-primary" />
+                      <Label htmlFor="night-mode" className="font-bold">Night Study Mode</Label>
+                    </div>
+                    <Switch id="night-mode" disabled />
                 </div>
                  <div className="flex justify-between items-center p-4 rounded-lg bg-card-foreground/5">
-                    <span>Privacy Settings</span>
-                    <ComingSoonBadge styleType="C">Soon</ComingSoonBadge>
+                    <div className="flex items-center gap-3">
+                      <ShieldCheck className="text-primary" />
+                      <span className="font-bold">Parent Connect</span>
+                    </div>
+                    <Button variant="outline" disabled>Setup</Button>
                 </div>
             </CardContent>
         </Card>
