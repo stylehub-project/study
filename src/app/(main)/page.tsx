@@ -1,12 +1,11 @@
 
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { getPersonalizedStudyRecommendations } from "@/ai/flows/personalized-study-recommendations";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Clock, Target, Calendar, CheckCircle } from "lucide-react";
+import { ArrowRight, BookOpen, Clock, Target, Calendar, CheckCircle, Upload, HelpCircle, GraduationCap, Sun } from "lucide-react";
+import Link from "next/link";
 
 async function Recommendations() {
   // Gracefully handle missing API key
@@ -21,7 +20,6 @@ async function Recommendations() {
   } catch (error) {
     console.error("Error fetching recommendations, displaying fallback.", error);
   }
-
 
   return (
     <Card className="h-full">
@@ -76,6 +74,70 @@ function QuickStatCard({ icon: Icon, title }: { icon: React.ElementType, title: 
     );
 }
 
+function QuickActionTile({ href, icon: Icon, title, comingSoon }: { href: string; icon: React.ElementType, title: string; comingSoon?: boolean }) {
+  const content = (
+    <div className="flex flex-col items-center justify-center text-center p-4 space-y-2 group relative">
+      <div className="p-4 bg-primary/10 rounded-full text-primary transition-all group-hover:scale-110 group-hover:bg-primary/20">
+        <Icon className="w-8 h-8" />
+      </div>
+      <p className="font-semibold text-card-foreground">{title}</p>
+      {comingSoon && (
+        <div className="absolute top-2 right-2">
+            <ComingSoonBadge styleType="A">✍️</ComingSoonBadge>
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <Card asChild className="shadow-md hover:shadow-lg hover:-translate-y-1 transition-all">
+      {comingSoon ? <div className="cursor-not-allowed">{content}</div> : <Link href={href}>{content}</Link>}
+    </Card>
+  )
+}
+
+function DailyTipWidget() {
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Daily Tip</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+                <Skeleton className="h-4 w-full" hasShimmer />
+                <Skeleton className="h-4 w-3/4" hasShimmer />
+                <div className="flex justify-end pt-2">
+                    <ComingSoonBadge styleType="D">New tip</ComingSoonBadge>
+                </div>
+            </CardContent>
+        </Card>
+    )
+}
+
+function UpcomingEventsWidget() {
+    return (
+        <Card className="relative overflow-hidden">
+            <ComingSoonBadge styleType="B">EVENTS</ComingSoonBadge>
+            <CardHeader>
+                <CardTitle>Upcoming Events</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                {[...Array(3)].map((_,i) => (
+                    <div key={i} className="flex items-start gap-4">
+                        <div className="flex flex-col items-center">
+                            <Sun className="w-5 h-5 text-primary" />
+                            <div className="w-px h-8 bg-border border-dashed" />
+                        </div>
+                        <div>
+                            <Skeleton className="h-4 w-32" />
+                            <Skeleton className="h-3 w-24 mt-1.5" />
+                        </div>
+                    </div>
+                ))}
+            </CardContent>
+        </Card>
+    )
+}
+
 export default function DashboardPage() {
   return (
     <div className="space-y-8">
@@ -94,60 +156,49 @@ export default function DashboardPage() {
         <QuickStatCard icon={Clock} title="Next Due Assignment" />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        <Card className="md:col-span-2 relative overflow-hidden p-6 flex flex-col">
-          <ComingSoonBadge styleType="B">COMING SOON</ComingSoonBadge>
-          <CardHeader className="p-0 z-10">
-            <CardTitle>Your Weekly Goals</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0 mt-4 flex-1 flex flex-col z-10">
-            <div className="space-y-2 mb-4">
-              <Skeleton className="h-4 w-full" hasShimmer />
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2 space-y-6">
+            <Card className="relative overflow-hidden p-6 flex flex-col">
+              <ComingSoonBadge styleType="B">COMING SOON</ComingSoonBadge>
+              <CardHeader className="p-0 z-10">
+                <CardTitle>Your Weekly Goals</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0 mt-4 flex-1 flex flex-col z-10">
+                <div className="space-y-2 mb-4">
+                  <Skeleton className="h-4 w-full" hasShimmer />
+                </div>
+                <ul className="space-y-3 text-sm">
+                    <li className="flex items-center gap-2">
+                        <span className="text-primary">●</span>
+                        <Skeleton className="h-4 flex-1" />
+                    </li>
+                     <li className="flex items-center gap-2">
+                        <span className="text-primary">●</span>
+                        <Skeleton className="h-4 flex-1" />
+                    </li>
+                     <li className="flex items-center gap-2">
+                        <span className="text-primary">●</span>
+                        <Skeleton className="h-4 flex-1" />
+                    </li>
+                </ul>
+                 <div className="mt-auto pt-4">
+                    <Button variant="outline" disabled className="border-primary/50 text-primary/80">Set Goals – ✍️ Coming Soon</Button>
+                </div>
+              </CardContent>
+            </Card>
+
+             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <QuickActionTile href="/assignments" icon={Upload} title="Upload Homework" />
+                <QuickActionTile href="#" icon={BookOpen} title="View Courses" comingSoon />
+                <QuickActionTile href="#" icon={Calendar} title="View Timetable" comingSoon />
+                <QuickActionTile href="#" icon={HelpCircle} title="Ask a Question" comingSoon />
             </div>
-            <ul className="space-y-3 text-sm">
-                <li className="flex items-center gap-2">
-                    <span className="text-primary">●</span>
-                    <Skeleton className="h-4 flex-1" />
-                </li>
-                 <li className="flex items-center gap-2">
-                    <span className="text-primary">●</span>
-                    <Skeleton className="h-4 flex-1" />
-                </li>
-                 <li className="flex items-center gap-2">
-                    <span className="text-primary">●</span>
-                    <Skeleton className="h-4 flex-1" />
-                </li>
-            </ul>
-             <div className="mt-auto pt-4">
-                <Button variant="outline" disabled className="border-primary/50 text-primary/80">Set Goals – ✍️ Coming Soon</Button>
-            </div>
-          </CardContent>
-        </Card>
+
+        </div>
         
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Tasks</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center justify-between p-2 rounded-md bg-card-foreground/5">
-                <span className="text-sm">Finish Physics homework</span>
-                <Button variant="ghost" size="icon" className="h-8 w-8"><ArrowRight /></Button>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded-md bg-card-foreground/5">
-                <span className="text-sm">Review Calculus notes</span>
-                 <Button variant="ghost" size="icon" className="h-8 w-8"><ArrowRight /></Button>
-              </div>
-            </CardContent>
-          </Card>
-           <Card>
-            <CardHeader>
-              <CardTitle>Weekly Focus</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <Skeleton className="h-8 w-full" />
-            </CardContent>
-          </Card>
+        <div className="hidden lg:block space-y-6">
+            <DailyTipWidget />
+            <UpcomingEventsWidget />
         </div>
       </div>
       
