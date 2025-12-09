@@ -12,7 +12,6 @@ export default {
       fontFamily: {
         body: ['Inter', 'system-ui', 'sans-serif'],
         headline: ['Manrope', 'sans-serif'],
-        code: ['monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
