@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar-1",
+      "description": "User avatar placeholder",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZXJzb24lMjBmYWNlfGVufDB8fHx8MTc2NTI3ODAwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person face"
+    },
+    {
+      "id": "empty-state-learn",
+      "description": "Empty state illustration for learning",
+      "imageUrl": "https://images.unsplash.com/photo-1682884397128-93fb87f8c11a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NTI4MTI2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract learning"
+    },
+    {
+      "id": "course-card-1",
+      "description": "Placeholder for a course card",
+      "imageUrl": "https://images.unsplash.com/photo-1601132359864-c974e79890ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzY2llbmNlJTIwdGVjaG5vbG9neXxlbnwwfHx8fDE3NjUyODA4MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "science technology"
+    },
+    {
+      "id": "course-card-2",
+      "description": "Placeholder for a course card",
+      "imageUrl": "https://images.unsplash.com/photo-1583429909883-1732d95a081a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhcnQlMjBoaXN0b3J5fGVufDB8fHx8MTc2NTIyOTU5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "art history"
+    },
+    {
+      "id": "course-card-3",
+      "description": "Placeholder for a course card",
+      "imageUrl": "https://images.unsplash.com/photo-1762999019099-5a6fa5e25194?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtYXRoZW1hdGljcyUyMGdlb21ldHJ5fGVufDB8fHx8MTc2NTI4NzkxMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mathematics geometry"
+    }
+  ]
 }
