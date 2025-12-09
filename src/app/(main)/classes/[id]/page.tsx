@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Play, Pause, FastForward, Rewind, MessageSquare, Brush, Palmtree, Bot } from "lucide-react";
+import { Play, Pause, FastForward, Rewind, MessageSquare, Brush, Palmtree, Bot, BookCheck } from "lucide-react";
+import Link from "next/link";
 
 function ConceptTimeline() {
   const steps = [
@@ -36,9 +37,9 @@ function ConceptTimeline() {
   );
 }
 
-function BottomBar() {
+function BottomBar({ courseId }: { courseId: string }) {
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full max-w-2xl">
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full max-w-3xl">
       <div className="bg-background/70 backdrop-blur-md rounded-full p-2 flex items-center justify-between shadow-2xl border border-primary/20">
         <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="rounded-full"><Rewind /></Button>
@@ -52,6 +53,11 @@ function BottomBar() {
         <div className="flex items-center gap-2">
             <Button variant="outline" size="icon" className="rounded-full border-primary/50 text-primary/80"><MessageSquare /></Button>
             <Button variant="outline" size="icon" className="rounded-full border-primary/50 text-primary/80"><Brush /></Button>
+            <Button asChild variant="outline" size="icon" className="rounded-full border-secondary/50 text-secondary/80">
+              <Link href={`/classes/${courseId}/summary`}>
+                <BookCheck />
+              </Link>
+            </Button>
         </div>
       </div>
     </div>
@@ -87,7 +93,7 @@ export default function AIClassroomPage({ params }: { params: { id: string } }) 
                  </div>
             </div>
 
-            <BottomBar />
+            <BottomBar courseId={params.id} />
         </div>
 
         {/* Right Panel */}
