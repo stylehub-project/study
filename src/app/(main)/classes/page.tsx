@@ -1,33 +1,52 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import { Beaker, BookText, Globe, Laptop, Leaf, Sigma } from "lucide-react";
+import Link from "next/link";
+
+const subjects = [
+    { name: "Science", icon: Beaker, href: "#" },
+    { name: "Maths", icon: Sigma, href: "#" },
+    { name: "English", icon: BookText, href: "#" },
+    { name: "EVS", icon: Leaf, href: "#" },
+    { name: "Social Studies", icon: Globe, href: "#" },
+    { name: "Computer", icon: Laptop, href: "#" },
+];
+
+const comingSoonFeatures = [
+    { title: "Class Notes", style: "bg-white/90 border border-gray-300 shadow-lg p-6 rounded-lg text-center relative before:absolute before:left-4 before:top-0 before:h-full before:w-px before:bg-red-400 before:opacity-50 after:absolute after:left-5 after:top-0 after:h-full after:w-px after:bg-red-400 after:opacity-50", text: "✍️ Coming Soon" },
+    { title: "Homework Helper", style: "bg-yellow-200/90 border border-yellow-300 shadow-xl p-6 rounded-lg text-center -rotate-3", text: "✍️ Coming Soon" },
+    { title: "Games for Learning", style: "bg-gray-800 border-2 border-dashed border-green-400 shadow-2xl p-6 rounded-lg text-center", text: "✍️ Coming Soon" }
+];
 
 export default function ClassesPage() {
   return (
-    <div className="space-y-8">
-       <h1 className="text-4xl font-bold font-headline text-center">Live Classes</h1>
-
-       <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-lg bg-card-foreground/10 overflow-hidden flex items-center justify-center">
-        <ComingSoonBadge styleType="E" className="text-5xl">Ink Reveal Coming Soon</ComingSoonBadge>
+    <div className="space-y-12">
+       <div className="text-center">
+        <h1 className="text-4xl font-bold font-headline">AI Animated Classes</h1>
+        <p className="mt-2 text-muted-foreground">Select a subject to start learning with our AI teachers.</p>
        </div>
 
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="lg:col-span-2">
-                <CardHeader>
-                    <Skeleton className="h-6 w-1/2" />
-                </CardHeader>
-                <CardContent>
-                    <Skeleton className="h-32 w-full" />
-                </CardContent>
-            </Card>
-             <Card>
-                <CardHeader>
-                    <Skeleton className="h-6 w-3/4" />
-                </CardHeader>
-                <CardContent className="space-y-3">
-                    {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-8 w-full" />)}
-                </CardContent>
-            </Card>
+       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+            {subjects.map((subject) => (
+                <Link href={subject.href} key={subject.name}>
+                    <Card className="group aspect-square flex flex-col items-center justify-center text-center p-4 transition-all hover:bg-card/80 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1 bg-card/60">
+                        <subject.icon className="w-12 h-12 md:w-16 md:h-16 text-primary/80 group-hover:text-primary transition-colors" />
+                        <CardTitle className="mt-4 text-base md:text-lg font-semibold">{subject.name}</CardTitle>
+                    </Card>
+                </Link>
+            ))}
+       </div>
+
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
+            {comingSoonFeatures.map((feature, index) => (
+                <div key={index} className="flex justify-center items-center">
+                    <div className={cn("w-full max-w-sm", feature.style)}>
+                        <h3 className={cn("font-bold font-headline mb-2", feature.title === "Games for Learning" && "text-green-400 font-mono")}>{feature.title}</h3>
+                        <p className={cn("text-sm", feature.title === "Games for Learning" && "text-green-500/80 animate-pulse")}>{feature.text}</p>
+                    </div>
+                </div>
+            ))}
        </div>
     </div>
   );
