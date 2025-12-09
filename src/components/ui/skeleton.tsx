@@ -2,11 +2,16 @@ import { cn } from "@/lib/utils"
 
 function Skeleton({
   className,
+  hasShimmer = false,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement> & { hasShimmer?: boolean }) {
   return (
     <div
-      className={cn("animate-pulse rounded-md bg-muted", className)}
+      className={cn(
+        "animate-pulse rounded-md bg-muted",
+        hasShimmer && "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-muted-foreground/10 before:to-transparent",
+        className
+      )}
       {...props}
     />
   )

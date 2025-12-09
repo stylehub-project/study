@@ -87,10 +87,25 @@ export default {
             height: '0',
           },
         },
+        'expand': {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        'blink': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        'shimmer': {
+          '100%': {
+            transform: 'translateX(100%)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'expand': 'expand 0.5s ease-out',
+        'blink': 'blink 1s infinite',
       },
     },
   },
