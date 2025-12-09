@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="px-6 py-4 text-center text-xs text-muted-foreground">
       <p>
         &copy; {currentYear} Sunrise Study Club. All rights reserved.{' '}
-        <ComingSoonBadge styleType="A" as="div" className="inline-block">Legal details</ComingSoonBadge>
+        <ComingSoonBadge styleType="A" as="span" className="inline-block">Legal details</ComingSoonBadge>
       </p>
     </footer>
   );
