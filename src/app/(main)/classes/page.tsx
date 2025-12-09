@@ -1,16 +1,15 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
+import { Card, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Beaker, BookText, Globe, Laptop, Leaf, Sigma } from "lucide-react";
 import Link from "next/link";
 
 const subjects = [
-    { name: "Science", icon: Beaker, href: "#" },
-    { name: "Maths", icon: Sigma, href: "#" },
-    { name: "English", icon: BookText, href: "#" },
-    { name: "EVS", icon: Leaf, href: "#" },
-    { name: "Social Studies", icon: Globe, href: "#" },
-    { name: "Computer", icon: Laptop, href: "#" },
+    { name: "Science", icon: Beaker, href: "/classes/science" },
+    { name: "Maths", icon: Sigma, href: "/classes/maths" },
+    { name: "English", icon: BookText, href: "/classes/english" },
+    { name: "EVS", icon: Leaf, href: "/classes/evs" },
+    { name: "Social Studies", icon: Globe, href: "/classes/social-studies" },
+    { name: "Computer", icon: Laptop, href: "/classes/computer" },
 ];
 
 const comingSoonFeatures = [
