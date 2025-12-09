@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Award, BarChart2, FileText, Send, Video } from "lucide-react";
+import Link from "next/link";
 
 export default function ClubPage() {
   return (
@@ -18,9 +19,11 @@ export default function ClubPage() {
       </div>
 
        <div className="flex flex-wrap justify-center gap-4">
-        <Button size="lg" variant="outline">
-          <FileText className="mr-2 h-5 w-5" />
-          This Week’s News
+        <Button size="lg" variant="outline" asChild>
+          <Link href="/club/writing-practice">
+            <FileText className="mr-2 h-5 w-5" />
+            This Week’s News
+          </Link>
         </Button>
         <Button size="lg" variant="outline">
           <Video className="mr-2 h-5 w-5" />
