@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { BrainCircuit, Calendar, Flame, Map, Target, Bot, Award, Star } from "lucide-react";
+import { BrainCircuit, Calendar, Flame, Map, Target, Bot, Award, Star, FileQuestion } from "lucide-react";
 
 function ConceptMasteryMap() {
     return (
@@ -120,6 +120,20 @@ function AiSuggestionsPanel() {
     )
 }
 
+function ExamSimulatorCard() {
+    return (
+        <Card className="flex flex-col items-center justify-center text-center p-8 relative">
+             <div className="absolute inset-0 bg-grid-zinc-800/10 [mask-image:linear-gradient(to_bottom,white_0,white_75%,transparent_100%)]"></div>
+            <FileQuestion className="w-16 h-16 text-primary mb-4" />
+            <h3 className="text-2xl font-bold font-headline">AI Exam Simulator</h3>
+            <p className="text-muted-foreground mt-2">Generate mock tests and practice under exam conditions.</p>
+            <div className="mt-4">
+                <ComingSoonBadge styleType="E">Simulator Launching Soon</ComingSoonBadge>
+            </div>
+        </Card>
+    );
+}
+
 export default function ReportsPage() {
   return (
     <div className="space-y-8">
@@ -135,6 +149,7 @@ export default function ReportsPage() {
             <LearningEfficiencyMeter />
             <ScoreCards />
             <AiSuggestionsPanel />
+            <ExamSimulatorCard />
         </div>
     </div>
   );
