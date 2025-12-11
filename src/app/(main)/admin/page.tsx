@@ -7,6 +7,45 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { User, Activity, BookUp, MessageSquareWarning, CheckSquare } from "lucide-react";
+
+function AdminHeader() {
+  const metrics = [
+    { label: "Students Active Today", value: "245", icon: Activity },
+    { label: "Classes Uploaded", value: "12", icon: BookUp },
+    { label: "Doubts Solved", value: "56", icon: MessageSquareWarning },
+    { label: "Submissions Pending", value: "8", icon: CheckSquare },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-6">
+        <div className="flex items-center gap-4">
+          <Avatar className="w-16 h-16 border-2 border-primary/50">
+            <AvatarFallback className="bg-primary/10">
+              <User className="w-8 h-8 text-primary"/>
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="text-3xl font-bold font-headline">Sunrise International Public School</h1>
+            <p className="text-muted-foreground font-semibold">STUDY CLUB ADMIN PANEL</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {metrics.map(metric => (
+            <Card key={metric.label} className="p-3 text-center">
+              <metric.icon className="w-6 h-6 text-primary/80 mx-auto mb-1 animate-pulse" />
+              <p className="text-xl font-bold">{metric.value}</p>
+              <p className="text-xs text-muted-foreground">{metric.label}</p>
+            </Card>
+          ))}
+        </div>
+      </div>
+       <div className="h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent animate-expand" />
+    </div>
+  )
+}
 
 function TeacherNewsUploadPanel() {
   return (
@@ -92,7 +131,7 @@ function TeacherAnalyticsDashboard() {
 export default function AdminPage() {
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold font-headline">Admin Panel</h1>
+      <AdminHeader />
       
       <Tabs defaultValue="students" className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
