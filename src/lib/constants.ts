@@ -32,7 +32,7 @@ export const NAV_LINKS: NavLink[] = [
   { name: 'Classes', href: '/classes', icon: School, comingSoon: false },
   { name: 'Assignments', href: '/assignments', icon: ClipboardList, comingSoon: false },
   { name: 'Library', href: '/library', icon: Library, comingSoon: true },
-  { name: 'Assessments', href: '/reports', icon: ClipboardCheck, comingSoon: true },
+  { name: 'Reports', href: '/reports', icon: BarChart3, comingSoon: false },
   { name: 'Club Zone', href: '/club', icon: Sun, comingSoon: false },
 ];
 
