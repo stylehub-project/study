@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion, FolderKanban, Book, Palette, Mic, PenLine, Tv, Zap, Upload } from "lucide-react";
+import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion, FolderKanban, Book, Palette, Mic, PenLine, Tv, Zap, Upload, HelpingHand, FileQuestion } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -256,6 +256,8 @@ function ContentUploadSystem() {
                     <SelectItem value="board"><PenLine className="inline-block mr-2 h-4 w-4" />Board Teaching</SelectItem>
                     <SelectItem value="conceptual"><Zap className="inline-block mr-2 h-4 w-4" />Conceptual</SelectItem>
                     <SelectItem value="story"><Book className="inline-block mr-2 h-4 w-4" />Story-based</SelectItem>
+                    <SelectItem value="diagram"><Palette className="inline-block mr-2 h-4 w-4" />Diagram-based</SelectItem>
+                    <SelectItem value="practical"><HelpingHand className="inline-block mr-2 h-4 w-4" />Practical Example</SelectItem>
                 </SelectContent></Select>
               </div>
             </div>
@@ -273,10 +275,12 @@ function ContentUploadSystem() {
                  <div className="space-y-2">
                     <Label htmlFor="voice-style">Voice Style</Label>
                     <Select><SelectTrigger id="voice-style"><SelectValue placeholder="Select Voice" /></SelectTrigger><SelectContent>
-                        <SelectItem value="teacher">Normal Teacher</SelectItem>
-                        <SelectItem value="friendly">Friendly</SelectItem>
-                        <SelectItem value="energetic">Energetic</SelectItem>
-                        <SelectItem value="hindi-english">Hindi-English Mix</SelectItem>
+                        <SelectItem value="teacher"><Mic className="inline-block mr-2 h-4 w-4"/>Normal Teacher</SelectItem>
+                        <SelectItem value="friendly"><Mic className="inline-block mr-2 h-4 w-4"/>Friendly</SelectItem>
+                        <SelectItem value="strict"><Mic className="inline-block mr-2 h-4 w-4"/>Strict</SelectItem>
+                        <SelectItem value="energetic"><Mic className="inline-block mr-2 h-4 w-4"/>Energetic</SelectItem>
+                        <SelectItem value="calm"><Mic className="inline-block mr-2 h-4 w-4"/>Calm</SelectItem>
+                        <SelectItem value="hindi-english"><Mic className="inline-block mr-2 h-4 w-4"/>Hindi-English Mix</SelectItem>
                     </SelectContent></Select>
                 </div>
                  <div className="space-y-2">
@@ -322,32 +326,26 @@ function ContentUploadSystem() {
         </Card>
 
         <Card>
-            <CardHeader>
-                <CardTitle>Other Uploads</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                 <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
-                    <div className="flex items-center gap-3">
-                      <FileText className="text-primary" />
-                      <span className="font-bold text-sm">Notes (PDF, Image)</span>
-                    </div>
-                    <ComingSoonBadge styleType="A">Papers floating</ComingSoonBadge>
-                </div>
-                 <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
-                    <div className="flex items-center gap-3">
-                      <ImageIcon className="text-primary" />
-                      <span className="font-bold text-sm">Worksheets</span>
-                    </div>
-                    <ComingSoonBadge styleType="A">Sheets sliding</ComingSoonBadge>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="text-primary" />
-                      <span className="font-bold text-sm">Question Bank</span>
-                    </div>
-                    <ComingSoonBadge styleType="A">Pencil writing</ComingSoonBadge>
-                </div>
-            </CardContent>
+          <CardHeader>
+            <CardTitle>Example Problem Generator</CardTitle>
+            <CardDescription>The AI will animate the solution step-by-step.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Textarea placeholder="Enter the question..." rows={2} />
+            <Textarea placeholder="Enter the answer and steps..." rows={4} />
+            <ComingSoonBadge styleType="D">AI Animated Solution</ComingSoonBadge>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>MCQ Generator</CardTitle>
+            <CardDescription>AI will generate questions from your summary.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Textarea placeholder="Paste a 1-paragraph summary here..." rows={4} />
+            <ComingSoonBadge styleType="E">Generate MCQs</ComingSoonBadge>
+          </CardContent>
         </Card>
       </div>
     </div>
