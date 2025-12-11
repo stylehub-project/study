@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion, FolderKanban } from "lucide-react";
+import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion, FolderKanban, Book, Palette, Mic, PenLine, Tv, Zap, Upload } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -222,50 +222,74 @@ function ManageStudentsPanel() {
 function ContentUploadSystem() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-2 space-y-8">
         <Card>
           <CardHeader>
-            <CardTitle>Upload AI Class Content</CardTitle>
-            <CardDescription>
-              Enter the details below. Our AI will generate an animated class from this content.
-            </CardDescription>
+            <CardTitle>Create AI Class</CardTitle>
+            <CardDescription>Fill in the details, and our AI will generate an animated lesson.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Input id="subject" placeholder="e.g., Science" />
+                <Select><SelectTrigger id="subject"><SelectValue placeholder="Select Subject" /></SelectTrigger><SelectContent><SelectItem value="maths">Maths</SelectItem><SelectItem value="science">Science</SelectItem><SelectItem value="english">English</SelectItem></SelectContent></Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="chapter">Chapter</Label>
+                <Label htmlFor="class-level">Class</Label>
+                <Select><SelectTrigger id="class-level"><SelectValue placeholder="Select Class" /></SelectTrigger><SelectContent>{[...Array(12)].map((_,i) => <SelectItem key={i} value={`${i+1}`}>{i+1}</SelectItem>)}</SelectContent></Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="chapter">Chapter Name</Label>
                 <Input id="chapter" placeholder="e.g., Photosynthesis" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="topic">Topic</Label>
-                <Input id="topic" placeholder="e.g., Light-dependent Reactions" />
+                <Label htmlFor="topic">Topic Name</Label>
+                <Input id="topic" placeholder="e.g., Light Reactions" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="difficulty">Difficulty</Label>
-                <Select>
-                  <SelectTrigger id="difficulty">
-                    <SelectValue placeholder="Select difficulty" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="easy">Easy</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="hard">Hard</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="difficulty">Difficulty Level</Label>
+                <Select><SelectTrigger id="difficulty"><SelectValue placeholder="Select Level" /></SelectTrigger><SelectContent><SelectItem value="basic">Basic</SelectItem><SelectItem value="medium">Medium</SelectItem><SelectItem value="advanced">Advanced</SelectItem></SelectContent></Select>
+              </div>
+               <div className="space-y-2">
+                <Label htmlFor="teaching-style">Teaching Style</Label>
+                <Select><SelectTrigger id="teaching-style"><SelectValue placeholder="Select Style" /></SelectTrigger><SelectContent>
+                    <SelectItem value="board"><PenLine className="inline-block mr-2 h-4 w-4" />Board Teaching</SelectItem>
+                    <SelectItem value="conceptual"><Zap className="inline-block mr-2 h-4 w-4" />Conceptual</SelectItem>
+                    <SelectItem value="story"><Book className="inline-block mr-2 h-4 w-4" />Story-based</SelectItem>
+                </SelectContent></Select>
               </div>
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="explanation">Content Input Box</Label>
-              <Textarea
-                id="explanation"
-                placeholder="Enter explanation text, example problems, keywords, and steps here..."
-                rows={12}
-              />
+              <Label htmlFor="explanation">Explanation Input</Label>
+              <Textarea id="explanation" placeholder="Enter explanation text, steps, definitions, examples, formulas, and common mistakes..." rows={12} />
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="keywords">Important Keywords</Label>
+                    <Input id="keywords" placeholder="e.g., Chlorophyll, Stomata" />
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="voice-style">Voice Style</Label>
+                    <Select><SelectTrigger id="voice-style"><SelectValue placeholder="Select Voice" /></SelectTrigger><SelectContent>
+                        <SelectItem value="teacher">Normal Teacher</SelectItem>
+                        <SelectItem value="friendly">Friendly</SelectItem>
+                        <SelectItem value="energetic">Energetic</SelectItem>
+                        <SelectItem value="hindi-english">Hindi-English Mix</SelectItem>
+                    </SelectContent></Select>
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="board-color">Board Color</Label>
+                    <Select><SelectTrigger id="board-color"><SelectValue placeholder="Select Color" /></SelectTrigger><SelectContent>
+                        <SelectItem value="auto">AI Auto Pick</SelectItem>
+                        <SelectItem value="black">Black</SelectItem>
+                        <SelectItem value="white">White</SelectItem>
+                        <SelectItem value="blue">Blue</SelectItem>
+                    </SelectContent></Select>
+                </div>
+            </div>
+            
             <div className="flex justify-end gap-4">
                 <Button variant="outline">Preview</Button>
                 <Button>Publish Class</Button>
@@ -276,12 +300,27 @@ function ContentUploadSystem() {
 
       <div className="space-y-6">
         <Card className="flex flex-col items-center justify-center text-center p-6 bg-muted/30">
-          <Bot className="w-10 h-10 text-primary/80 mb-3"/>
+          <Tv className="w-10 h-10 text-primary/80 mb-3"/>
           <CardTitle className="text-lg">AI Class Preview</CardTitle>
           <CardDescription className="text-xs">A preview of the generated class will appear here.</CardDescription>
           <Skeleton className="w-full aspect-video mt-4" />
         </Card>
         
+        <Card>
+            <CardHeader>
+                <CardTitle>Diagram Generator</CardTitle>
+                <CardDescription>Upload or describe a diagram for the AI.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                <div className="p-8 text-center border-2 border-dashed rounded-lg">
+                    <Upload className="w-8 h-8 mx-auto text-muted-foreground" />
+                    <p className="mt-2 text-sm text-muted-foreground">Upload sketch or image</p>
+                </div>
+                <Textarea placeholder="Or describe the diagram here... e.g., 'A diagram of a plant cell with labels for nucleus, cytoplasm, and cell wall.'" />
+                <ComingSoonBadge styleType="D">AI Diagram Engine</ComingSoonBadge>
+            </CardContent>
+        </Card>
+
         <Card>
             <CardHeader>
                 <CardTitle>Other Uploads</CardTitle>
@@ -321,7 +360,7 @@ export default function AdminPage() {
     <div className="space-y-8">
       <AdminHeader />
       
-      <Tabs defaultValue="students" className="w-full">
+      <Tabs defaultValue="content" className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-6">
             <TabsTrigger value="students">Manage Students</TabsTrigger>
             <TabsTrigger value="content">Content Upload</TabsTrigger>
