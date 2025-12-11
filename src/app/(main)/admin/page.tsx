@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle } from "lucide-react";
+import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -322,11 +322,12 @@ export default function AdminPage() {
       <AdminHeader />
       
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-6">
             <TabsTrigger value="students">Manage Students</TabsTrigger>
             <TabsTrigger value="content">Content Upload</TabsTrigger>
-            <TabsTrigger value="submissions">View Submissions</TabsTrigger>
             <TabsTrigger value="uploadNews">News Club</TabsTrigger>
+            <TabsTrigger value="submissions">Submissions</TabsTrigger>
+            <TabsTrigger value="doubts">Doubt Review</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
@@ -339,20 +340,33 @@ export default function AdminPage() {
                 <ContentUploadSystem />
             </TabsContent>
             
+            <TabsContent value="uploadNews">
+              <TeacherNewsUploadPanel />
+            </TabsContent>
+            
             <TabsContent value="submissions">
               <Card>
                 <CardHeader>
-                  <CardTitle>View Submissions</CardTitle>
-                  <CardDescription>Review student video submissions and AI feedback.</CardDescription>
+                  <CardTitle>View All Submissions</CardTitle>
+                  <CardDescription>Review student submissions for assignments and news reports.</CardDescription>
                 </CardHeader>
                 <CardContent className="text-center p-12">
-                  <ComingSoonBadge styleType="F">Submissions Dashboard Coming Soon</ComingSoonBadge>
+                  <ComingSoonBadge styleType="F">Unified Submissions Dashboard Coming Soon</ComingSoonBadge>
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="uploadNews">
-              <TeacherNewsUploadPanel />
+            <TabsContent value="doubts">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Doubt Review</CardTitle>
+                  <CardDescription>View, assign, and answer student questions.</CardDescription>
+                </CardHeader>
+                <CardContent className="text-center p-12 flex flex-col items-center">
+                    <MessageCircleQuestion className="w-16 h-16 text-primary/30 mb-4" />
+                    <ComingSoonBadge styleType="E">AI Auto-Answer Feature Coming Soon</ComingSoonBadge>
+                </CardContent>
+              </Card>
             </TabsContent>
             
             <TabsContent value="analytics">
