@@ -241,6 +241,7 @@ function ContentUploadSystem() {
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState<GenerateClassOutput | null>(null);
   const [isPreviewing, setIsPreviewing] = useState(false);
+  const [previewProgress, setPreviewProgress] = useState(0);
   const [previewResult, setPreviewResult] = useState<GenerateClassOutput | null>(null);
 
 
@@ -284,15 +285,28 @@ function ContentUploadSystem() {
 
   const handlePreview = async () => {
     setIsPreviewing(true);
+    setPreviewProgress(0);
     setPreviewResult(null);
+
+    const interval = setInterval(() => {
+        setPreviewProgress(prev => {
+            if (prev >= 90) {
+                clearInterval(interval);
+                return prev;
+            }
+            return prev + 10;
+        });
+    }, 300);
+
     try {
       const response = await generateClass(formState as GenerateClassInput);
       setPreviewResult(response);
+      setPreviewProgress(100);
     } catch (error) {
       console.error("Error generating preview:", error);
       // You could show a toast or an alert here
     } finally {
-        // No need to set isPreviewing to false here if the dialog handles its own open state
+        clearInterval(interval);
     }
   };
 
@@ -372,8 +386,16 @@ function ContentUploadSystem() {
             </div>
             
             <div className="flex justify-end gap-4">
-                <Button variant="outline" onClick={handlePreview} disabled={isLoading || isPreviewing}>
-                  {isPreviewing ? 'Generating...' : 'Preview'}
+                <Button variant="outline" onClick={handlePreview} disabled={isLoading || isPreviewing} className="relative w-28">
+                     {isPreviewing && !previewResult && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                             <Progress value={previewProgress} className="h-full w-full" />
+                             <span className="absolute text-primary-foreground text-sm font-bold">{previewProgress}%</span>
+                        </div>
+                    )}
+                    <span className={isPreviewing && !previewResult ? 'opacity-0' : 'opacity-100'}>
+                        {isPreviewing && !previewResult ? '' : 'Preview'}
+                    </span>
                 </Button>
                 <Button onClick={handlePublish} disabled={isLoading || isPreviewing} className="relative">
                     {isLoading && (
@@ -446,7 +468,7 @@ function ContentUploadSystem() {
       </div>
 
        {previewResult && (
-        <AlertDialog open={!!previewResult} onOpenChange={(open) => !open && setPreviewResult(null)}>
+        <AlertDialog open={!!previewResult} onOpenChange={(open) => { if (!open) { setPreviewResult(null); setIsPreviewing(false); setPreviewProgress(0); }}}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Generated Lesson Plan Preview</AlertDialogTitle>
@@ -455,7 +477,7 @@ function ContentUploadSystem() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => { setPreviewResult(null); setIsPreviewing(false); }}>Close</AlertDialogCancel>
+              <AlertDialogCancel onClick={() => { setPreviewResult(null); setIsPreviewing(false); setPreviewProgress(0); }}>Close</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
