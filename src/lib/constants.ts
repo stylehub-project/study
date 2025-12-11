@@ -20,6 +20,7 @@ import {
   MessageSquareWarning,
   FileSignature,
   SlidersHorizontal,
+  Construction,
 } from 'lucide-react';
 
 export type NavLink = {
@@ -42,6 +43,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const ADMIN_NAV_LINKS: NavLink[] = [
     { name: 'Admin', href: '/admin', icon: Shield, comingSoon: false },
+    { name: 'App Controls', href: '/admin', icon: Construction, comingSoon: true },
 ]
 
 export const MOBILE_NAV_LINKS: NavLink[] = [
