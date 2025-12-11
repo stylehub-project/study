@@ -29,7 +29,7 @@ export default function LibraryPage() {
             <TabsList>
                 <TabsTrigger value="documents">Documents</TabsTrigger>
                 <TabsTrigger value="videos">Videos</TabsTrigger>
-                <TabsTrigger value: "tests">Practice Tests</TabsTrigger>
+                <TabsTrigger value="tests">Practice Tests</TabsTrigger>
             </TabsList>
         </div>
 
