@@ -3,12 +3,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Bot, Calendar, CheckCircle, Clock, Flame, HelpCircle, Library, Sparkles, Sun, Upload } from "lucide-react";
+import { ArrowRight, BookOpen, Bot, Calendar, CheckCircle, Clock, Flame, HelpCircle, Library, Sparkles, Sun, Upload, Star } from "lucide-react";
 import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Pie, PieChart } from "recharts";
+
 
 function DashboardHeader() {
   const [greeting, setGreeting] = useState("Hello, Student!");
@@ -134,6 +139,87 @@ function QuickAccessTile({ href, icon: Icon, title, subtitle, progress, classNam
     )
 }
 
+function WeeklyMissionsPanel() {
+    const missions = [
+        { id: 'mission-1', text: 'Complete 3 AI Classes', completed: true, progress: 100 },
+        { id: 'mission-2', text: 'Submit 1 News Reporting', completed: true, progress: 100 },
+        { id: 'mission-3', text: 'Finish 2 Doubt Questions', completed: false, progress: 50 },
+        { id: 'mission-4', text: 'Score 70%+ in weekly quiz', completed: false, progress: 0 },
+    ];
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>This Week's Missions</CardTitle>
+                <CardDescription>Complete missions to earn badges!</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                {missions.map(mission => (
+                    <div key={mission.id} className="space-y-2">
+                        <div className="flex items-center gap-3">
+                            <Checkbox id={mission.id} checked={mission.completed} className="[&[data-state=checked]]:bg-green-500"/>
+                            <label htmlFor={mission.id} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                {mission.text}
+                            </label>
+                            {mission.completed && <Star className="w-4 h-4 text-yellow-400 animate-pulse" />}
+                        </div>
+                        <Progress value={mission.progress} className="h-2" />
+                    </div>
+                ))}
+            </CardContent>
+            <CardFooter className="text-xs text-muted-foreground">
+                Badges like "Concept Master" and "Clear Speaker" unlock on Sunday.
+            </CardFooter>
+        </Card>
+    );
+}
+
+function PerformanceSnapshot() {
+    const chartData = [{ name: 'Strong', value: 70, fill: 'hsl(var(--primary))' }, { name: 'Weak', value: 30, fill: 'hsl(var(--muted))' }];
+    const chartConfig = {
+        strong: { label: 'Strong', color: 'hsl(var(--primary))' },
+        weak: { label: 'Weak', color: 'hsl(var(--muted))' }
+    }
+
+    return (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="text-base">Concept Strength</CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center">
+                    <ChartContainer config={chartConfig} className="h-24 w-24">
+                        <PieChart>
+                            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                            <Pie data={chartData} dataKey="value" nameKey="name" innerRadius={25} strokeWidth={2} />
+                        </PieChart>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle className="text-base">Reading & Writing</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <Skeleton className="h-6 w-full" />
+                    <Skeleton className="h-6 w-3/4" />
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="text-base">Speaking Score</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                    <p className="text-3xl font-bold">8.5<span className="text-sm text-muted-foreground">/10</span></p>
+                    <p className="text-xs text-muted-foreground">Confidence + Clarity</p>
+                </CardContent>
+            </Card>
+            <Card className="flex flex-col items-center justify-center text-center p-4 bg-card/50 border-dashed">
+                <CardTitle className="text-base">Homework Pending</CardTitle>
+                <p className="text-sm text-muted-foreground mt-2">Coming Soon</p>
+            </Card>
+        </div>
+    )
+}
 
 export default function DashboardPage() {
   return (
@@ -141,10 +227,11 @@ export default function DashboardPage() {
       <DashboardHeader />
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3 space-y-8">
             <LearningPlanCard />
+            <WeeklyMissionsPanel />
         </div>
-        <div className="lg:col-span-2 grid grid-cols-2 gap-6">
+        <div className="lg:col-span-2 grid grid-cols-2 gap-6 content-start">
             <QuickAccessTile 
                 href="/classes/science" 
                 icon={BookOpen} 
@@ -176,6 +263,10 @@ export default function DashboardPage() {
                 subtitle="Submission due Sunday"
             />
         </div>
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold font-headline mb-4">Performance Snapshot</h2>
+        <PerformanceSnapshot />
       </div>
     </div>
   );
