@@ -11,7 +11,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const GenerateClassInputSchema = z.object({
+const GenerateClassInputSchema = z.object({
   subject: z.string().describe('The subject of the class (e.g., Maths, Science).'),
   classLevel: z.string().describe('The grade level for the class (e.g., 10).'),
   chapter: z.string().describe('The name of the chapter.'),
@@ -25,7 +25,7 @@ export const GenerateClassInputSchema = z.object({
 });
 export type GenerateClassInput = z.infer<typeof GenerateClassInputSchema>;
 
-export const GenerateClassOutputSchema = z.object({
+const GenerateClassOutputSchema = z.object({
   lessonPlan: z.string().describe('A structured lesson plan with introduction, key points, examples, and a summary.'),
   boardActions: z.array(z.string()).describe('A sequence of actions for the animated board (e.g., "WRITE: Title", "HIGHLIGHT: Keyword").'),
 });
