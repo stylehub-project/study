@@ -14,9 +14,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { generateClass, type GenerateClassInput } from "@/ai/flows/generate-class-flow";
+import { generateClass, type GenerateClassInput, type GenerateClassOutput } from "@/ai/flows/generate-class-flow";
 import { useState } from "react";
 import { Progress } from "@/components/ui/progress";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel } from "@/components/ui/alert-dialog";
 
 function AdminHeader() {
   const metrics = [
@@ -238,7 +239,10 @@ function ContentUploadSystem() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<GenerateClassOutput | null>(null);
+  const [isPreviewing, setIsPreviewing] = useState(false);
+  const [previewResult, setPreviewResult] = useState<GenerateClassOutput | null>(null);
+
 
   const handleInputChange = (field: keyof GenerateClassInput, value: string) => {
     setFormState(prev => ({ ...prev, [field]: value }));
@@ -253,7 +257,6 @@ function ContentUploadSystem() {
     setProgress(0);
     setResult(null);
 
-    // Simulate progress
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 90) {
@@ -276,6 +279,20 @@ function ContentUploadSystem() {
       clearInterval(interval);
       setIsLoading(false);
       setTimeout(() => setProgress(0), 2000); // Reset progress after 2 seconds
+    }
+  };
+
+  const handlePreview = async () => {
+    setIsPreviewing(true);
+    setPreviewResult(null);
+    try {
+      const response = await generateClass(formState as GenerateClassInput);
+      setPreviewResult(response);
+    } catch (error) {
+      console.error("Error generating preview:", error);
+      // You could show a toast or an alert here
+    } finally {
+        // No need to set isPreviewing to false here if the dialog handles its own open state
     }
   };
 
@@ -355,8 +372,10 @@ function ContentUploadSystem() {
             </div>
             
             <div className="flex justify-end gap-4">
-                <Button variant="outline" disabled={isLoading}>Preview</Button>
-                <Button onClick={handlePublish} disabled={isLoading} className="relative">
+                <Button variant="outline" onClick={handlePreview} disabled={isLoading || isPreviewing}>
+                  {isPreviewing ? 'Generating...' : 'Preview'}
+                </Button>
+                <Button onClick={handlePublish} disabled={isLoading || isPreviewing} className="relative">
                     {isLoading && (
                         <div className="absolute inset-0 flex items-center justify-center">
                              <Progress value={progress} className="h-full w-full" />
@@ -374,8 +393,17 @@ function ContentUploadSystem() {
         <Card className="flex flex-col items-center justify-center text-center p-6 bg-muted/30">
           <Tv className="w-10 h-10 text-primary/80 mb-3"/>
           <CardTitle className="text-lg">AI Class Preview</CardTitle>
-          <CardDescription className="text-xs">A preview of the generated class will appear here.</CardDescription>
-          <Skeleton className="w-full aspect-video mt-4" />
+          {isPreviewing && !previewResult ? (
+            <>
+              <CardDescription className="text-xs">Generating preview...</CardDescription>
+              <Skeleton className="w-full aspect-video mt-4" />
+            </>
+          ) : (
+             <>
+              <CardDescription className="text-xs">A preview of the generated class will appear here.</CardDescription>
+              <Skeleton className="w-full aspect-video mt-4" />
+            </>
+          )}
         </Card>
         
         <Card>
@@ -416,6 +444,22 @@ function ContentUploadSystem() {
           </CardContent>
         </Card>
       </div>
+
+       {previewResult && (
+        <AlertDialog open={!!previewResult} onOpenChange={(open) => !open && setPreviewResult(null)}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Generated Lesson Plan Preview</AlertDialogTitle>
+              <AlertDialogDescription className="whitespace-pre-wrap font-mono text-xs max-h-[60vh] overflow-auto">
+                {previewResult.lessonPlan}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => { setPreviewResult(null); setIsPreviewing(false); }}>Close</AlertDialogCancel>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </div>
   );
 }
