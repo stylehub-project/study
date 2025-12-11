@@ -1,8 +1,9 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { BrainCircuit, Calendar, Flame, Map, Target } from "lucide-react";
+import { BrainCircuit, Calendar, Flame, Map, Target, Bot, Award, Star } from "lucide-react";
 
 function ConceptMasteryMap() {
     return (
@@ -71,6 +72,53 @@ function LearningEfficiencyMeter() {
     )
 }
 
+function ScoreCards() {
+    return (
+        <Card className="md:col-span-2 lg:col-span-3">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Award />Score Cards</CardTitle>
+                <CardDescription>Your performance across different skills.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {[...Array(5)].map((_, i) => (
+                    <Card key={i} className="p-4 text-center">
+                        <Skeleton className="h-5 w-2/3 mx-auto" />
+                        <Skeleton className="h-8 w-1/2 mx-auto mt-2" />
+                        <Skeleton className="h-12 w-full mt-4" />
+                    </Card>
+                ))}
+            </CardContent>
+        </Card>
+    )
+}
+
+function AiSuggestionsPanel() {
+    return (
+        <Card className="md:col-span-2 lg:col-span-3">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Bot />AI Suggestions</CardTitle>
+                <CardDescription>Personalized feedback to guide your learning.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6 md:grid-cols-3">
+                <Card className="p-4 bg-muted/50">
+                    <h4 className="font-semibold flex items-center gap-2 text-green-400"><Star className="w-4 h-4"/>What you did well</h4>
+                    <Skeleton className="h-4 w-full mt-2" />
+                    <Skeleton className="h-4 w-5/6 mt-2" />
+                </Card>
+                <Card className="p-4 bg-muted/50">
+                    <h4 className="font-semibold flex items-center gap-2 text-yellow-400"><BrainCircuit className="w-4 h-4"/>What to improve</h4>
+                    <Skeleton className="h-4 w-full mt-2" />
+                    <Skeleton className="h-4 w-5/6 mt-2" />
+                </Card>
+                <Card className="p-4 bg-muted/50">
+                    <h4 className="font-semibold flex items-center gap-2 text-blue-400"><Target className="w-4 h-4"/>What to do today</h4>
+                    <Skeleton className="h-4 w-full mt-2" />
+                    <Skeleton className="h-4 w-5/6 mt-2" />
+                </Card>
+            </CardContent>
+        </Card>
+    )
+}
 
 export default function ReportsPage() {
   return (
@@ -85,6 +133,8 @@ export default function ReportsPage() {
             <ProgressTimeline />
             <SkillHeatmap />
             <LearningEfficiencyMeter />
+            <ScoreCards />
+            <AiSuggestionsPanel />
         </div>
     </div>
   );

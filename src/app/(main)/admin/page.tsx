@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -47,6 +48,46 @@ function TeacherNewsUploadPanel() {
   );
 }
 
+function TeacherAnalyticsDashboard() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Student Analytics</CardTitle>
+        <CardDescription>Overview of student engagement and performance.</CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Class Engagement</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-24 w-full" />
+            <p className="text-xs text-muted-foreground mt-2">Who watched classes this week.</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">News Club Submissions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-24 w-full" />
+             <p className="text-xs text-muted-foreground mt-2">Video submission status.</p>
+          </CardContent>
+        </Card>
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle className="text-lg">Performance Overview</CardTitle>
+          </CardHeader>
+          <CardContent>
+             <ComingSoonBadge styleType="D">Detailed test & concept performance coming soon.</ComingSoonBadge>
+             <Skeleton className="h-16 w-full mt-4" />
+          </CardContent>
+        </Card>
+      </CardContent>
+    </Card>
+  )
+}
+
 
 export default function AdminPage() {
   return (
@@ -54,11 +95,10 @@ export default function AdminPage() {
       <h1 className="text-4xl font-bold font-headline">Admin Panel</h1>
       
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
             <TabsTrigger value="students">Manage Students</TabsTrigger>
             <TabsTrigger value="submissions">View Submissions</TabsTrigger>
             <TabsTrigger value="uploadNews">Upload News</TabsTrigger>
-            <TabsTrigger value="assignments">Create Assignments</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
@@ -92,18 +132,9 @@ export default function AdminPage() {
               <TeacherNewsUploadPanel />
             </TabsContent>
             
-            {[ 'assignments', 'analytics'].map(tab => (
-                 <TabsContent value={tab} key={tab}>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="capitalize">{tab}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="text-center p-12">
-                            <ComingSoonBadge styleType="D">{`'${tab}' section is under construction.`}</ComingSoonBadge>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-            ))}
+            <TabsContent value="analytics">
+              <TeacherAnalyticsDashboard />
+            </TabsContent>
         </div>
       </Tabs>
     </div>
