@@ -12,7 +12,7 @@ function SmartRevisionCard() {
              <h3 className="text-2xl font-bold font-headline mt-4">Smart Revision Mode</h3>
              <p className="text-muted-foreground mt-2">AI will create a personalized revision plan based on your weak spots.</p>
              <div className="mt-4">
-                <ComingSoonBadge styleType="D">Coming Soon</ComingSoonBadge>
+                <ComingSoonBadge styleType="D">Hourglass sand animation</ComingSoonBadge>
              </div>
         </Card>
     )
@@ -29,7 +29,7 @@ export default function LibraryPage() {
             <TabsList>
                 <TabsTrigger value="documents">Documents</TabsTrigger>
                 <TabsTrigger value="videos">Videos</TabsTrigger>
-                <TabsTrigger value="tests">Practice Tests</TabsTrigger>
+                <TabsTrigger value: "tests">Practice Tests</TabsTrigger>
             </TabsList>
         </div>
 
@@ -53,14 +53,14 @@ export default function LibraryPage() {
             <TabsContent value="videos">
                 <Card>
                     <CardContent className="p-12 text-center">
-                        <ComingSoonBadge styleType="F">Video Library Coming Soon</ComingSoonBadge>
+                        <ComingSoonBadge styleType="F">Video Library</ComingSoonBadge>
                     </CardContent>
                 </Card>
             </TabsContent>
              <TabsContent value="tests">
                 <Card>
                     <CardContent className="p-12 text-center">
-                        <ComingSoonBadge styleType="F">Practice Tests Coming Soon</ComingSoonBadge>
+                        <ComingSoonBadge styleType="F">Practice Tests</ComingSoonBadge>
                     </CardContent>
                 </Card>
             </TabsContent>

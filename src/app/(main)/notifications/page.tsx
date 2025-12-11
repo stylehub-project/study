@@ -32,12 +32,15 @@ export default function NotificationsPage() {
                     <div className="relative">
                         <Users className="w-20 h-20 text-primary/30" />
                         <div className="absolute top-0 -right-2 animate-ping">
-                           <ComingSoonBadge styleType="A">✍️</ComingSoonBadge>
+                           <ComingSoonBadge styleType="A">💬</ComingSoonBadge>
                         </div>
                     </div>
                 </div>
                 <h2 className="text-2xl font-bold font-headline">Peer Discussions</h2>
                 <p className="text-muted-foreground mt-2 max-w-sm mx-auto">A collaborative space to discuss topics with your classmates is coming soon!</p>
+                 <div className="mt-4">
+                    <ComingSoonBadge styleType="A">Glowing bubbles</ComingSoonBadge>
+                </div>
             </div>
         </Card>
     </div>

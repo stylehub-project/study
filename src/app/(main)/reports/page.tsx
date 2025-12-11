@@ -30,7 +30,7 @@ function ProgressTimeline() {
             <CardContent>
                 <Skeleton className="w-full h-48" />
                 <div className="text-center mt-4">
-                    <ComingSoonBadge styleType="D">Calendar view coming soon</ComingSoonBadge>
+                    <ComingSoonBadge styleType="D">Calendar view</ComingSoonBadge>
                 </div>
             </CardContent>
         </Card>
@@ -47,7 +47,7 @@ function SkillHeatmap() {
             <CardContent>
                  <Skeleton className="w-full h-32" />
                  <div className="text-center mt-4">
-                    <ComingSoonBadge styleType="E">Heatmap arriving shortly</ComingSoonBadge>
+                    <ComingSoonBadge styleType="E">Heatmap arriving</ComingSoonBadge>
                 </div>
             </CardContent>
         </Card>
@@ -128,7 +128,7 @@ function ExamSimulatorCard() {
             <h3 className="text-2xl font-bold font-headline">AI Exam Simulator</h3>
             <p className="text-muted-foreground mt-2">Generate mock tests and practice under exam conditions.</p>
             <div className="mt-4">
-                <ComingSoonBadge styleType="E">Simulator Launching Soon</ComingSoonBadge>
+                <ComingSoonBadge styleType="E">Pencil auto-writing</ComingSoonBadge>
             </div>
         </Card>
     );

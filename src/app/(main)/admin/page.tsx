@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion } from "lucide-react";
+import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle, MessageCircleQuestion, FolderKanban } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -292,21 +292,21 @@ function ContentUploadSystem() {
                       <FileText className="text-primary" />
                       <span className="font-bold text-sm">Notes (PDF, Image)</span>
                     </div>
-                    <ComingSoonBadge styleType="A">Soon</ComingSoonBadge>
+                    <ComingSoonBadge styleType="A">Papers floating</ComingSoonBadge>
                 </div>
                  <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
                     <div className="flex items-center gap-3">
                       <ImageIcon className="text-primary" />
                       <span className="font-bold text-sm">Worksheets</span>
                     </div>
-                    <ComingSoonBadge styleType="A">Soon</ComingSoonBadge>
+                    <ComingSoonBadge styleType="A">Sheets sliding</ComingSoonBadge>
                 </div>
                 <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
                     <div className="flex items-center gap-3">
                       <CheckCircle className="text-primary" />
                       <span className="font-bold text-sm">Question Bank</span>
                     </div>
-                    <ComingSoonBadge styleType="A">Soon</ComingSoonBadge>
+                    <ComingSoonBadge styleType="A">Pencil writing</ComingSoonBadge>
                 </div>
             </CardContent>
         </Card>
@@ -351,7 +351,7 @@ export default function AdminPage() {
                   <CardDescription>Review student submissions for assignments and news reports.</CardDescription>
                 </CardHeader>
                 <CardContent className="text-center p-12">
-                  <ComingSoonBadge styleType="F">Unified Submissions Dashboard Coming Soon</ComingSoonBadge>
+                  <ComingSoonBadge styleType="F">Unified Submissions Dashboard</ComingSoonBadge>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -364,7 +364,7 @@ export default function AdminPage() {
                 </CardHeader>
                 <CardContent className="text-center p-12 flex flex-col items-center">
                     <MessageCircleQuestion className="w-16 h-16 text-primary/30 mb-4" />
-                    <ComingSoonBadge styleType="E">AI Auto-Answer Feature Coming Soon</ComingSoonBadge>
+                    <ComingSoonBadge styleType="E">AI Auto-Answer</ComingSoonBadge>
                 </CardContent>
               </Card>
             </TabsContent>

@@ -21,6 +21,8 @@ import {
   FileSignature,
   SlidersHorizontal,
   Construction,
+  BarChartHorizontal,
+  FolderKanban,
 } from 'lucide-react';
 
 export type NavLink = {
@@ -42,7 +44,8 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const ADMIN_NAV_LINKS: NavLink[] = [
-    { name: 'Admin', href: '/admin', icon: Shield, comingSoon: false },
+    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, comingSoon: false },
+    { name: 'Analytics', href: '/admin', icon: BarChartHorizontal, comingSoon: true },
     { name: 'App Controls', href: '/admin', icon: Construction, comingSoon: true },
 ]
 

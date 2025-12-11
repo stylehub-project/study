@@ -70,15 +70,10 @@ export function AppSidebar() {
             </SidebarMenuItem>
           ))}
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname.startsWith('/profile')} tooltip="Profile">
+            <SidebarMenuButton asChild isActive={pathname.startsWith('/profile')} tooltip="Settings">
               <Link href="/profile">
-                <Avatar className="w-6 h-6">
-                  {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User avatar" />}
-                  <AvatarFallback>
-                    <User />
-                  </AvatarFallback>
-                </Avatar>
-                <span>Profile</span>
+                <Settings />
+                <span>Settings</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
