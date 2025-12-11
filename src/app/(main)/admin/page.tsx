@@ -15,9 +15,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { generateClass, type GenerateClassInput, type GenerateClassOutput } from "@/ai/flows/generate-class-flow";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel } from "@/components/ui/alert-dialog";
+import { ClassContext, AIClass } from "@/context/ClassContext";
+import { useToast } from "@/hooks/use-toast";
 
 function AdminHeader() {
   const metrics = [
@@ -225,6 +227,8 @@ function ManageStudentsPanel() {
 }
 
 function ContentUploadSystem() {
+  const { addClass } = useContext(ClassContext);
+  const { toast } = useToast();
   const [formState, setFormState] = useState<Partial<GenerateClassInput>>({
     subject: 'maths',
     classLevel: '10',
@@ -239,7 +243,6 @@ function ContentUploadSystem() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [result, setResult] = useState<GenerateClassOutput | null>(null);
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [previewProgress, setPreviewProgress] = useState(0);
   const [previewResult, setPreviewResult] = useState<GenerateClassOutput | null>(null);
@@ -256,7 +259,6 @@ function ContentUploadSystem() {
   const handlePublish = async () => {
     setIsLoading(true);
     setProgress(0);
-    setResult(null);
 
     const interval = setInterval(() => {
       setProgress(prev => {
@@ -270,16 +272,28 @@ function ContentUploadSystem() {
 
     try {
       const response = await generateClass(formState as GenerateClassInput);
-      setResult(response);
-      console.log('AI Class Generated:', response);
+      const newClass: AIClass = {
+        id: `${formState.subject}-${Date.now()}`,
+        ...formState as Omit<GenerateClassInput, 'id'>,
+        ...response,
+      };
+      addClass(newClass);
       setProgress(100);
+      toast({
+        title: "Class Published!",
+        description: `The class "${formState.topic}" has been added.`,
+      });
     } catch (error) {
       console.error('Error generating class:', error);
-      // Handle error display to user
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Could not generate the class.",
+      });
     } finally {
       clearInterval(interval);
       setIsLoading(false);
-      setTimeout(() => setProgress(0), 2000); // Reset progress after 2 seconds
+      setTimeout(() => setProgress(0), 2000);
     }
   };
 
@@ -304,7 +318,11 @@ function ContentUploadSystem() {
       setPreviewProgress(100);
     } catch (error) {
       console.error("Error generating preview:", error);
-      // You could show a toast or an alert here
+      toast({
+        variant: "destructive",
+        title: "Preview Failed",
+        description: "Could not generate the class preview.",
+      });
     } finally {
         clearInterval(interval);
     }

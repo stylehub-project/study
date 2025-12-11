@@ -1,5 +1,12 @@
+'use client';
+
 import { AppLayout } from '@/components/layout/app-layout';
+import { ClassProvider } from '@/context/ClassContext';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
-  return <AppLayout>{children}</AppLayout>;
+  return (
+    <ClassProvider>
+      <AppLayout>{children}</AppLayout>
+    </ClassProvider>
+  );
 }

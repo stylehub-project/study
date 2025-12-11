@@ -1,7 +1,11 @@
-import { Card, CardTitle } from "@/components/ui/card";
+'use client';
+
+import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Beaker, BookText, Globe, Laptop, Leaf, Sigma } from "lucide-react";
+import { Beaker, BookText, Globe, Laptop, Leaf, Sigma, Video } from "lucide-react";
 import Link from "next/link";
+import { useContext } from "react";
+import { ClassContext } from "@/context/ClassContext";
 
 const subjects = [
     { name: "Science", icon: Beaker, href: "/classes/science" },
@@ -19,12 +23,42 @@ const comingSoonFeatures = [
 ];
 
 export default function ClassesPage() {
+  const { classes } = useContext(ClassContext);
+
   return (
     <div className="space-y-12">
        <div className="text-center">
         <h1 className="text-4xl font-bold font-headline">AI Animated Classes</h1>
         <p className="mt-2 text-muted-foreground">Select a subject to start learning with our AI teachers.</p>
        </div>
+
+       {classes.length > 0 && (
+         <Card>
+           <CardHeader>
+             <CardTitle>Published Classes</CardTitle>
+           </CardHeader>
+           <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+             {classes.map((aiClass) => (
+               <Link href={`/classes/${aiClass.id}`} key={aiClass.id}>
+                <Card className="group flex flex-col h-full hover:shadow-lg transition-shadow">
+                    <div className="p-4 flex-1">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-primary/10 rounded-full">
+                                <Video className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                                <CardTitle className="text-lg">{aiClass.topic}</CardTitle>
+                                <p className="text-sm text-muted-foreground">{aiClass.chapter}</p>
+                            </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2 capitalize">{aiClass.subject} | Class {aiClass.classLevel} | {aiClass.difficulty}</p>
+                    </div>
+                </Card>
+               </Link>
+             ))}
+           </CardContent>
+         </Card>
+       )}
 
        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
             {subjects.map((subject) => (
