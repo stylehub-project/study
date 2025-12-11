@@ -1,3 +1,4 @@
+'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComingSoonBadge } from "@/components/ui/coming-soon-badge";
@@ -13,6 +14,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { generateClass, type GenerateClassInput } from "@/ai/flows/generate-class-flow";
+import { useState } from "react";
+import { Progress } from "@/components/ui/progress";
 
 function AdminHeader() {
   const metrics = [
@@ -220,6 +224,62 @@ function ManageStudentsPanel() {
 }
 
 function ContentUploadSystem() {
+  const [formState, setFormState] = useState<Partial<GenerateClassInput>>({
+    subject: 'maths',
+    classLevel: '10',
+    difficulty: 'medium',
+    teachingStyle: 'board',
+    voiceStyle: 'teacher',
+    boardColor: 'auto',
+    chapter: '',
+    topic: '',
+    explanation: '',
+    keywords: '',
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [result, setResult] = useState<any | null>(null);
+
+  const handleInputChange = (field: keyof GenerateClassInput, value: string) => {
+    setFormState(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSelectChange = (field: keyof GenerateClassInput) => (value: string) => {
+    handleInputChange(field, value);
+  };
+
+  const handlePublish = async () => {
+    setIsLoading(true);
+    setProgress(0);
+    setResult(null);
+
+    // Simulate progress
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 90) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 10;
+      });
+    }, 500);
+
+    try {
+      const response = await generateClass(formState as GenerateClassInput);
+      setResult(response);
+      console.log('AI Class Generated:', response);
+      setProgress(100);
+    } catch (error) {
+      console.error('Error generating class:', error);
+      // Handle error display to user
+    } finally {
+      clearInterval(interval);
+      setIsLoading(false);
+      setTimeout(() => setProgress(0), 2000); // Reset progress after 2 seconds
+    }
+  };
+
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2 space-y-8">
@@ -232,27 +292,27 @@ function ContentUploadSystem() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Select><SelectTrigger id="subject"><SelectValue placeholder="Select Subject" /></SelectTrigger><SelectContent><SelectItem value="maths">Maths</SelectItem><SelectItem value="science">Science</SelectItem><SelectItem value="english">English</SelectItem></SelectContent></Select>
+                <Select value={formState.subject} onValueChange={handleSelectChange('subject')}><SelectTrigger id="subject"><SelectValue placeholder="Select Subject" /></SelectTrigger><SelectContent><SelectItem value="maths">Maths</SelectItem><SelectItem value="science">Science</SelectItem><SelectItem value="english">English</SelectItem></SelectContent></Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="class-level">Class</Label>
-                <Select><SelectTrigger id="class-level"><SelectValue placeholder="Select Class" /></SelectTrigger><SelectContent>{[...Array(12)].map((_,i) => <SelectItem key={i} value={`${i+1}`}>{i+1}</SelectItem>)}</SelectContent></Select>
+                <Select value={formState.classLevel} onValueChange={handleSelectChange('classLevel')}><SelectTrigger id="class-level"><SelectValue placeholder="Select Class" /></SelectTrigger><SelectContent>{[...Array(12)].map((_,i) => <SelectItem key={i} value={`${i+1}`}>{i+1}</SelectItem>)}</SelectContent></Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="chapter">Chapter Name</Label>
-                <Input id="chapter" placeholder="e.g., Photosynthesis" />
+                <Input id="chapter" placeholder="e.g., Photosynthesis" value={formState.chapter} onChange={(e) => handleInputChange('chapter', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="topic">Topic Name</Label>
-                <Input id="topic" placeholder="e.g., Light Reactions" />
+                <Input id="topic" placeholder="e.g., Light Reactions" value={formState.topic} onChange={(e) => handleInputChange('topic', e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="difficulty">Difficulty Level</Label>
-                <Select><SelectTrigger id="difficulty"><SelectValue placeholder="Select Level" /></SelectTrigger><SelectContent><SelectItem value="basic">Basic</SelectItem><SelectItem value="medium">Medium</SelectItem><SelectItem value="advanced">Advanced</SelectItem></SelectContent></Select>
+                <Select value={formState.difficulty} onValueChange={handleSelectChange('difficulty')}><SelectTrigger id="difficulty"><SelectValue placeholder="Select Level" /></SelectTrigger><SelectContent><SelectItem value="basic">Basic</SelectItem><SelectItem value="medium">Medium</SelectItem><SelectItem value="advanced">Advanced</SelectItem></SelectContent></Select>
               </div>
                <div className="space-y-2">
                 <Label htmlFor="teaching-style">Teaching Style</Label>
-                <Select><SelectTrigger id="teaching-style"><SelectValue placeholder="Select Style" /></SelectTrigger><SelectContent>
+                <Select value={formState.teachingStyle} onValueChange={handleSelectChange('teachingStyle')}><SelectTrigger id="teaching-style"><SelectValue placeholder="Select Style" /></SelectTrigger><SelectContent>
                     <SelectItem value="board"><PenLine className="inline-block mr-2 h-4 w-4" />Board Teaching</SelectItem>
                     <SelectItem value="conceptual"><Zap className="inline-block mr-2 h-4 w-4" />Conceptual</SelectItem>
                     <SelectItem value="story"><Book className="inline-block mr-2 h-4 w-4" />Story-based</SelectItem>
@@ -264,17 +324,17 @@ function ContentUploadSystem() {
             
             <div className="space-y-2">
               <Label htmlFor="explanation">Explanation Input</Label>
-              <Textarea id="explanation" placeholder="Enter explanation text, steps, definitions, examples, formulas, and common mistakes..." rows={12} />
+              <Textarea id="explanation" placeholder="Enter explanation text, steps, definitions, examples, formulas, and common mistakes..." rows={12} value={formState.explanation} onChange={(e) => handleInputChange('explanation', e.target.value)} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="keywords">Important Keywords</Label>
-                    <Input id="keywords" placeholder="e.g., Chlorophyll, Stomata" />
+                    <Input id="keywords" placeholder="e.g., Chlorophyll, Stomata" value={formState.keywords} onChange={(e) => handleInputChange('keywords', e.target.value)} />
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="voice-style">Voice Style</Label>
-                    <Select><SelectTrigger id="voice-style"><SelectValue placeholder="Select Voice" /></SelectTrigger><SelectContent>
+                    <Select value={formState.voiceStyle} onValueChange={handleSelectChange('voiceStyle')}><SelectTrigger id="voice-style"><SelectValue placeholder="Select Voice" /></SelectTrigger><SelectContent>
                         <SelectItem value="teacher"><Mic className="inline-block mr-2 h-4 w-4"/>Normal Teacher</SelectItem>
                         <SelectItem value="friendly"><Mic className="inline-block mr-2 h-4 w-4"/>Friendly</SelectItem>
                         <SelectItem value="strict"><Mic className="inline-block mr-2 h-4 w-4"/>Strict</SelectItem>
@@ -285,7 +345,7 @@ function ContentUploadSystem() {
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="board-color">Board Color</Label>
-                    <Select><SelectTrigger id="board-color"><SelectValue placeholder="Select Color" /></SelectTrigger><SelectContent>
+                    <Select value={formState.boardColor} onValueChange={handleSelectChange('boardColor')}><SelectTrigger id="board-color"><SelectValue placeholder="Select Color" /></SelectTrigger><SelectContent>
                         <SelectItem value="auto">AI Auto Pick</SelectItem>
                         <SelectItem value="black">Black</SelectItem>
                         <SelectItem value="white">White</SelectItem>
@@ -295,8 +355,16 @@ function ContentUploadSystem() {
             </div>
             
             <div className="flex justify-end gap-4">
-                <Button variant="outline">Preview</Button>
-                <Button>Publish Class</Button>
+                <Button variant="outline" disabled={isLoading}>Preview</Button>
+                <Button onClick={handlePublish} disabled={isLoading} className="relative">
+                    {isLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                             <Progress value={progress} className="h-full w-full" />
+                             <span className="absolute text-primary-foreground text-sm font-bold">{progress}%</span>
+                        </div>
+                    )}
+                    <span className={isLoading ? 'opacity-0' : 'opacity-100'}>Publish Class</span>
+                </Button>
             </div>
           </CardContent>
         </Card>
