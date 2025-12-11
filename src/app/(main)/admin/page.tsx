@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown } from "lucide-react";
+import { User, Activity, BookUp, MessageSquareWarning, CheckSquare, Search, Filter, MoreHorizontal, ChevronDown, Bot, FileText, Image as ImageIcon, CheckCircle } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -219,6 +219,102 @@ function ManageStudentsPanel() {
     );
 }
 
+function ContentUploadSystem() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="lg:col-span-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Upload AI Class Content</CardTitle>
+            <CardDescription>
+              Enter the details below. Our AI will generate an animated class from this content.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="subject">Subject</Label>
+                <Input id="subject" placeholder="e.g., Science" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="chapter">Chapter</Label>
+                <Input id="chapter" placeholder="e.g., Photosynthesis" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="topic">Topic</Label>
+                <Input id="topic" placeholder="e.g., Light-dependent Reactions" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="difficulty">Difficulty</Label>
+                <Select>
+                  <SelectTrigger id="difficulty">
+                    <SelectValue placeholder="Select difficulty" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="easy">Easy</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="hard">Hard</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="explanation">Content Input Box</Label>
+              <Textarea
+                id="explanation"
+                placeholder="Enter explanation text, example problems, keywords, and steps here..."
+                rows={12}
+              />
+            </div>
+            <div className="flex justify-end gap-4">
+                <Button variant="outline">Preview</Button>
+                <Button>Publish Class</Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="space-y-6">
+        <Card className="flex flex-col items-center justify-center text-center p-6 bg-muted/30">
+          <Bot className="w-10 h-10 text-primary/80 mb-3"/>
+          <CardTitle className="text-lg">AI Class Preview</CardTitle>
+          <CardDescription className="text-xs">A preview of the generated class will appear here.</CardDescription>
+          <Skeleton className="w-full aspect-video mt-4" />
+        </Card>
+        
+        <Card>
+            <CardHeader>
+                <CardTitle>Other Uploads</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                 <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
+                    <div className="flex items-center gap-3">
+                      <FileText className="text-primary" />
+                      <span className="font-bold text-sm">Notes (PDF, Image)</span>
+                    </div>
+                    <ComingSoonBadge styleType="A">Soon</ComingSoonBadge>
+                </div>
+                 <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
+                    <div className="flex items-center gap-3">
+                      <ImageIcon className="text-primary" />
+                      <span className="font-bold text-sm">Worksheets</span>
+                    </div>
+                    <ComingSoonBadge styleType="A">Soon</ComingSoonBadge>
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-card-foreground/5">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="text-primary" />
+                      <span className="font-bold text-sm">Question Bank</span>
+                    </div>
+                    <ComingSoonBadge styleType="A">Soon</ComingSoonBadge>
+                </div>
+            </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
 
 export default function AdminPage() {
   return (
@@ -226,16 +322,21 @@ export default function AdminPage() {
       <AdminHeader />
       
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
             <TabsTrigger value="students">Manage Students</TabsTrigger>
+            <TabsTrigger value="content">Content Upload</TabsTrigger>
             <TabsTrigger value="submissions">View Submissions</TabsTrigger>
-            <TabsTrigger value="uploadNews">Upload News</TabsTrigger>
+            <TabsTrigger value="uploadNews">News Club</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
         <div className="mt-6">
             <TabsContent value="students">
                 <ManageStudentsPanel />
+            </TabsContent>
+
+            <TabsContent value="content">
+                <ContentUploadSystem />
             </TabsContent>
             
             <TabsContent value="submissions">
