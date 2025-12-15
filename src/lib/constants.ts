@@ -34,7 +34,7 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { name: 'Home', href: '/', icon: Home, comingSoon: false },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, comingSoon: false },
   { name: 'Courses', href: '/courses', icon: BookOpen, comingSoon: false },
   { name: 'Classes', href: '/classes', icon: School, comingSoon: false },
   { name: 'Assignments', href: '/assignments', icon: ClipboardList, comingSoon: false },
@@ -45,13 +45,13 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const ADMIN_NAV_LINKS: NavLink[] = [
-    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, comingSoon: false },
+    { name: 'Admin', href: '/admin', icon: Shield, comingSoon: false },
     { name: "Analytics", href: "/reports", icon: BarChartHorizontal, comingSoon: false },
     { name: 'App Controls', href: '/admin', icon: Construction, comingSoon: true },
 ]
 
 export const MOBILE_NAV_LINKS: NavLink[] = [
-  { name: 'Home', href: '/', icon: Home, comingSoon: false },
+  { name: 'Home', href: '/dashboard', icon: Home, comingSoon: false },
   { name: 'Upload', href: '/assignments', icon: Upload, comingSoon: false },
   { name: 'Messages', href: '/notifications', icon: MessageSquare, comingSoon: false },
   { name: 'Profile', href: '/profile', icon: User, comingSoon: false },

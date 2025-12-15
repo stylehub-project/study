@@ -25,7 +25,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/dashboard" className="flex items-center gap-2">
           <GraduationCap className="w-8 h-8 text-primary" />
           <h1 className="text-lg font-bold font-headline whitespace-nowrap group-data-[collapsible=icon]:hidden">
             Sunrise Study Club
@@ -58,13 +58,13 @@ export function AppSidebar() {
             <SidebarMenuItem key={link.name}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname.startsWith(link.href)}
+                isActive={pathname.startsWith(link.href) && link.href !== '/'}
                 tooltip={link.name}
               >
                 <Link href={link.href}>
                   <link.icon />
                   <span>{link.name}</span>
-                   {link.comingSoon && <ComingSoonBadge styleType='A'>✍️</ComingSoonBadge>}
+                   {link.comingSoon && <ComingSoonBadge styleType='A'>✍️</CarlContent>}
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
