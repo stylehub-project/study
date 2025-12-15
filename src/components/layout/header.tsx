@@ -39,18 +39,12 @@ export function Header() {
             <Languages className="h-5 w-5" />
             <span className="sr-only">Toggle language</span>
           </Button>
-          <div className="absolute -top-1 -right-1">
-            <ComingSoonBadge styleType="C" />
-          </div>
         </div>
         <div className="relative">
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
             <span className="sr-only">Notifications</span>
           </Button>
-          <div className="absolute -top-1 -right-1">
-            <ComingSoonBadge styleType="C" />
-          </div>
         </div>
         
         <DropdownMenu>
