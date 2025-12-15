@@ -41,6 +41,7 @@ export const NAV_LINKS: NavLink[] = [
   { name: 'Library', href: '/library', icon: Library, comingSoon: true },
   { name: 'Reports', href: '/reports', icon: BarChart3, comingSoon: false },
   { name: 'Club Zone', href: '/club', icon: Sun, comingSoon: false },
+  { name: 'Notifications', href: '/notifications', icon: MessageSquare, comingSoon: false },
 ];
 
 export const ADMIN_NAV_LINKS: NavLink[] = [
@@ -52,6 +53,6 @@ export const ADMIN_NAV_LINKS: NavLink[] = [
 export const MOBILE_NAV_LINKS: NavLink[] = [
   { name: 'Home', href: '/', icon: Home, comingSoon: false },
   { name: 'Upload', href: '/assignments', icon: Upload, comingSoon: false },
-  { name: 'Messages', href: '/notifications', icon: MessageSquare, comingSoon: true },
+  { name: 'Messages', href: '/notifications', icon: MessageSquare, comingSoon: false },
   { name: 'Profile', href: '/profile', icon: User, comingSoon: false },
 ];
