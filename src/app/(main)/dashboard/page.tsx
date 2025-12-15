@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Bot, Calendar, CheckCircle, Clock, Flame, HelpCircle, Library, Sparkles, Sun, Upload, Star } from "lucide-react";
+import { ArrowRight, BookOpen, Bot, Calendar, CheckCircle, Clock, Flame, HelpCircle, Library, Sparkles, Sun, Upload, Star, X } from "lucide-react";
 import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Progress } from "@/components/ui/progress";
@@ -71,6 +71,44 @@ function DashboardHeader() {
     </div>
   );
 }
+
+function WelcomeCard({ onDismiss }: { onDismiss: () => void }) {
+  return (
+    <Card className="relative bg-gradient-to-br from-primary/20 via-primary/5 to-transparent border-primary/20 shadow-2xl">
+      <Button variant="ghost" size="icon" className="absolute top-4 right-4 h-6 w-6" onClick={onDismiss}>
+        <X className="h-4 w-4" />
+      </Button>
+      <CardHeader>
+        <CardTitle className="text-2xl text-primary">Welcome to Sunrise Study Club!</CardTitle>
+        <CardDescription>Your personal AI-powered learning space is ready.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p>Here are a few things you can do to get started:</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Link href="/classes">
+            <div className="p-4 rounded-lg bg-muted/50 hover:bg-muted transition-all h-full">
+              <h4 className="font-bold flex items-center gap-2"><BookOpen />Explore AI Classes</h4>
+              <p className="text-sm text-muted-foreground mt-1">Watch AI-animated lessons on various subjects.</p>
+            </div>
+          </Link>
+          <Link href="/club">
+            <div className="p-4 rounded-lg bg-muted/50 hover:bg-muted transition-all h-full">
+              <h4 className="font-bold flex items-center gap-2"><Sun />Join the News Club</h4>
+              <p className="text-sm text-muted-foreground mt-1">Practice public speaking and get AI feedback.</p>
+            </div>
+          </Link>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button onClick={onDismiss} className="w-full">
+          Get Started
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
+
 
 function LearningPlanCard() {
     return (
@@ -222,9 +260,26 @@ function PerformanceSnapshot() {
 }
 
 export default function DashboardPage() {
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    // This check ensures localStorage is only accessed on the client side.
+    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+    if (!hasSeenWelcome) {
+      setShowWelcome(true);
+    }
+  }, []);
+
+  const handleDismissWelcome = () => {
+    localStorage.setItem('hasSeenWelcome', 'true');
+    setShowWelcome(false);
+  };
+  
   return (
     <div className="space-y-8">
       <DashboardHeader />
+      
+      {showWelcome && <WelcomeCard onDismiss={handleDismissWelcome} />}
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         <div className="lg:col-span-3 space-y-8">
@@ -271,3 +326,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
