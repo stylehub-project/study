@@ -20,6 +20,7 @@ import { Progress } from "@/components/ui/progress";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { ClassContext, AIClass } from "@/context/ClassContext";
 import { useToast } from "@/hooks/use-toast";
+import { FileUp } from 'lucide-react';
 
 function SystemHealthMetrics() {
   const metrics = [
@@ -622,7 +623,14 @@ export default function AdminPage() {
             </TabsContent>
             
             <TabsContent value="uploadNews">
-              <TeacherNewsUploadPanel />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="lg:col-span-2">
+                        <TeacherNewsUploadPanel />
+                    </div>
+                    <div>
+                        <TeacherAnalyticsDashboard />
+                    </div>
+                </div>
             </TabsContent>
             
             <TabsContent value="submissions">
