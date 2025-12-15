@@ -64,7 +64,7 @@ export function AppSidebar() {
                 <Link href={link.href}>
                   <link.icon />
                   <span>{link.name}</span>
-                   {link.comingSoon && <ComingSoonBadge styleType='A'>✍️</CarlContent>}
+                   {link.comingSoon && <ComingSoonBadge styleType='A'>✍️</ComingSoonBadge>}
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
