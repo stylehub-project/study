@@ -27,7 +27,7 @@ function SystemHealthMetrics() {
     { label: "Total Students", value: "245", icon: Users },
     { label: "Total Teachers", value: "15", icon: User },
     { label: "Active Today", value: "180", icon: Activity },
-    { label: "Suspended Accounts", value: "2", icon: Shield },
+    { label: "Suspended Accounts", value: "2", icon: UserX },
     { label: "Pending Tasks", value: "8", icon: CheckSquare },
     { label: "Server Usage", value: "75%", icon: Server },
     { label: "AI Usage Stats", value: "1.2k calls", icon: BrainCircuit },

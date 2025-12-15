@@ -46,7 +46,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const ADMIN_NAV_LINKS: NavLink[] = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, comingSoon: false },
-    { name: 'Analytics', href: '/admin', icon: BarChartHorizontal, comingSoon: true },
+    { name: "Analytics", href: "/reports", icon: BarChartHorizontal, comingSoon: false },
     { name: 'App Controls', href: '/admin', icon: Construction, comingSoon: true },
 ]
 
