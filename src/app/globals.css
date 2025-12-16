@@ -8,8 +8,8 @@
     --foreground: 210 40% 98%;
     
     /* Panel Color */
-    --card: 60 33% 91%; /* Paper-like hue: beige */
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card: 240 70% 6%; 
+    --card-foreground: 210 40% 98%;
 
     --popover: 240 70% 4%;
     --popover-foreground: 210 40% 98%;
@@ -52,8 +52,8 @@
     --foreground: 210 40% 98%;
     
     /* Panel Color */
-    --card: 60 33% 91%; /* Paper-like hue: beige */
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card: 240 70% 6%;
+    --card-foreground: 210 40% 98%;
 
     --popover: 240 70% 4%;
     --popover-foreground: 210 40% 98%;
