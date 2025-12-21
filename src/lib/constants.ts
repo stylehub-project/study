@@ -23,6 +23,7 @@ import {
   Construction,
   BarChartHorizontal,
   FolderKanban,
+  Calendar,
 } from 'lucide-react';
 
 export type NavLink = {
@@ -38,6 +39,7 @@ export const NAV_LINKS: NavLink[] = [
   { name: 'Courses', href: '/courses', icon: BookOpen, comingSoon: false },
   { name: 'Classes', href: '/classes', icon: School, comingSoon: false },
   { name: 'Assignments', href: '/assignments', icon: ClipboardList, comingSoon: false },
+  { name: 'Special Days', href: '/special-days', icon: Calendar, comingSoon: false },
   { name: 'Library', href: '/library', icon: Library, comingSoon: true },
   { name: 'Reports', href: '/reports', icon: BarChart3, comingSoon: false },
   { name: 'Club Zone', href: '/club', icon: Sun, comingSoon: false },
