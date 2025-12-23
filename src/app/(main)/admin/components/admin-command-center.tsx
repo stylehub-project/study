@@ -1,12 +1,13 @@
+'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, Activity, CheckSquare, Server, BrainCircuit, AlertTriangle, UserX, Send, Folder, Lock, LogOut, List, Siren } from "lucide-react";
+import { User, Activity, CheckSquare, Server, BrainCircuit, AlertTriangle, UserX, Send, Folder, Lock, LogOut, List, Siren, Search } from "lucide-react";
 import { FileUp, PenLine, Shield, Tv } from "lucide-react";
 
 function SystemHealthMetrics() {
   const metrics = [
-    { label: "Total Students", value: "245", icon: Users },
+    { label: "Total Students", value: "245", icon: User },
     { label: "Total Teachers", value: "15", icon: User },
     { label: "Active Today", value: "180", icon: Activity },
     { label: "Suspended Accounts", value: "2", icon: UserX },
