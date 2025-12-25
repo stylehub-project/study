@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Bot, Calendar, CheckCircle, Clock, Flame, HelpCircle, Library, Sparkles, Sun, Upload, Star, X } from "lucide-react";
+import { ArrowRight, BookOpen, Bot, Calendar, CheckCircle, Clock, Flame, HelpCircle, Library, Sparkles, Sun, Upload, Star, X, User } from "lucide-react";
 import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Progress } from "@/components/ui/progress";
@@ -17,7 +17,6 @@ import { Pie, PieChart } from "recharts";
 
 function DashboardHeader() {
   const [greeting, setGreeting] = useState("Hello, Student!");
-  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -34,9 +33,8 @@ function DashboardHeader() {
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
         <Link href="/profile">
-            <Avatar className="w-14 h-14 border-2 border-primary/50 shadow-lg hover:scale-105 transition-transform cursor-pointer">
-                {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User avatar" />}
-                <AvatarFallback className="bg-primary/20 text-primary">S</AvatarFallback>
+            <Avatar className="w-14 h-14 border-2 border-primary/50 shadow-lg hover:scale-105 transition-transform cursor-pointer flex items-center justify-center bg-muted">
+                <User className="h-8 w-8 text-muted-foreground" />
             </Avatar>
         </Link>
         <div>
