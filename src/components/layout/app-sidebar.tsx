@@ -15,12 +15,9 @@ import {
 } from '@/components/ui/sidebar';
 import { ADMIN_NAV_LINKS, NAV_LINKS } from '@/lib/constants';
 import { ComingSoonBadge } from '../ui/coming-soon-badge';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
 
   return (
     <Sidebar>
@@ -79,12 +76,9 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
               <SidebarMenuButton asChild isActive={pathname.startsWith('/profile')} tooltip="Profile">
-                <Link href="/profile" className="flex items-center gap-2">
-                   <Avatar className="w-7 h-7">
-                    {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User avatar" />}
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                  <span className="group-data-[collapsible=icon]:hidden">Profile</span>
+                <Link href="/profile">
+                  <User />
+                  <span>Profile</span>
                 </Link>
               </SidebarMenuButton>
           </SidebarMenuItem>

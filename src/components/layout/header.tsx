@@ -1,11 +1,9 @@
 'use client';
 
-import { Bell, Languages, Search } from 'lucide-react';
+import { Bell, Languages, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ComingSoonBadge } from '../ui/coming-soon-badge';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,10 +13,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
+import { Avatar } from '../ui/avatar';
 
 export function Header() {
-  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
-
   return (
     <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-4 border-b border-primary/20 bg-background/80 px-4 shadow-sm backdrop-blur-sm md:px-6">
       <div className="md:hidden">
@@ -50,9 +47,8 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
-                 {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User avatar" />}
-                <AvatarFallback>U</AvatarFallback>
+              <Avatar className="h-8 w-8 flex items-center justify-center bg-muted">
+                 <User className="h-5 w-5 text-muted-foreground" />
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
