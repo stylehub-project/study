@@ -70,12 +70,23 @@ export function AppSidebar() {
             </SidebarMenuItem>
           ))}
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname.startsWith('/profile')} tooltip="Settings">
+            <SidebarMenuButton asChild isActive={pathname.startsWith('/settings')} tooltip="Settings">
               <Link href="/profile">
                 <Settings />
                 <span>Settings</span>
               </Link>
             </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+              <SidebarMenuButton asChild isActive={pathname.startsWith('/profile')} tooltip="Profile">
+                <Link href="/profile" className="flex items-center gap-2">
+                   <Avatar className="w-7 h-7">
+                    {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User avatar" />}
+                    <AvatarFallback>U</AvatarFallback>
+                  </Avatar>
+                  <span className="group-data-[collapsible=icon]:hidden">Profile</span>
+                </Link>
+              </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
